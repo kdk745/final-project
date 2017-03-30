@@ -2,48 +2,58 @@ import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import './index.css';
 import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar';
-
 class Splashform extends Component {
-  state = {
-    value: 1,
-    partySelect: [1,2,3,4,5,6,7],
-    partySize: 1,
+  constructor(props) {
+    super(props);
+  }
+  handleTextChange = (event) => {
+    if (this.props.onChange) {
+      this.props.onChange(event.target.value);
+    }
   };
 
-
-  handleTextChange = (val) => {
-    this.setState({value: val});
+  handleNameChange = (event) => {
+    if (this.props.onChange) {
+      this.props.onNameChange(event.target.value);
+    }
   };
 
-  handleTblChange = (val) => {
-    console.log(this.state.partySize);
-    this.setState({partySize: val});
+  handleTblChange = (event) => {
+    if (this.props.onSelectChange) {
+      this.props.onSelectChange(event.target.value);
+    }
   };
 
+  submit = (event) => {
+    if (this.props.onSubmit) {
+      this.props.onSubmit(event);
+    }
+  }
   render() {
     return (
       <div className="splash-container">
         <div className="splash-section">
           <div className="splash-row">
-            <AppBar
-              className="app-bar"
-              title="Welcome"
-              showMenuIconButton={false}
-            />
-            <TextField
-              className="splash-text-field"
-              floatingLabelText="Search for Restaurants"
-              hintText={this.props.hint}
-              onChange={(event) => this.handleTextChange(event.target.value)}
-            />
+            <p className="heading">Welcome</p>
+            <div className="splash-text-field">
+              <TextField
+                floatingLabelText="Search for Restaurants"
+                hintText={this.props.hint}
+                onChange={(event) => this.handleTextChange(event)}
+              />
+            </div>
           </div>
           <div className="splash-row">
+            <TextField
+              floatingLabelText="name"
+              hintText={this.props.hint2}
+              onChange={(event) => this.handleNameChange(event)}
+            />
             <span>Party Size</span>
             <select
-              onChange={(event) => this.handleTblChange(event.target.value)}
+              onChange={(event) => this.handleTblChange(event)}
             >
-              {this.state.partySelect.map(val => {
+              {this.props.partySelect.map(val => {
                 return (
                   <option key={val} value={val}>{val}</option>
                 );
@@ -51,7 +61,12 @@ class Splashform extends Component {
             </select>
           </div>
           <div className="splash-row">
-            <RaisedButton label="Submit" />
+            <RaisedButton
+              label="Submit"
+              onClick={
+                () => this.submit(this.props.searchText)
+              }
+            />
           </div>
         </div>
       </div>
@@ -60,7 +75,14 @@ class Splashform extends Component {
 }
 
 Splashform.propTypes = {
-  hint: PropTypes.string
+  hint: PropTypes.string,
+  onChange: PropTypes.func,
+  onSelectChange: PropTypes.func,
+  partySelect: PropTypes.array,
+  onSubmit: PropTypes.func,
+  searchText: PropTypes.string,
+  hint2: PropTypes.string,
+  onNameChange: PropTypes.func
 };
 
 export default Splashform;
