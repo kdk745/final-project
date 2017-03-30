@@ -15,4 +15,4 @@
 
 ### Notable Dependencies:
 ##### Node.js MongoDB React Express Redux Material-UI googleMaps
-##### API repository: http://www.github.com/final-proj-api
+##### API repository: http://www.github.com/kdk745/final-proj-api
