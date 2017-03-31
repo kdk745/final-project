@@ -25,17 +25,6 @@ class App extends Component {
     this.props.onComponentMount();
   }
 
-  doTriggerMap(items) {
-    const address = items.value.replace(' ','+');
-    // const party = items.partySize;
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyB3xtO0L1CN2laHV-NcVNpj6tGQ8yCjXIM`)
-      .then(resp => {
-        this.setState({
-          lat: resp.data.results[0].geometry.location.lat,
-          lon: resp.data.results[0].geometry.location.lng
-        });
-      });
-  }
   onMapCenter(coords) {
     this.setState({
       lat: coords.lat,
