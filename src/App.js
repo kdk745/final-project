@@ -25,13 +25,6 @@ class App extends Component {
     this.props.onComponentMount();
   }
 
-  onMapCenter(coords) {
-    this.setState({
-      lat: coords.lat,
-      lon: coords.lng
-    });
-  }
-
   splash() {
     if (this.props.onSplash) {
       this.props.onSplash(this.props.showSplash);
